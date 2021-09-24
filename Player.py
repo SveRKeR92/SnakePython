@@ -73,7 +73,9 @@ class Player:
     def displayScore(self):
         font = pygame.font.SysFont('Arial', 30)
         scoreDisplay = font.render('Score : '+ str(self.score), True, (0,0,0))
+        speedDisplay = font.render('Speed : '+ str(self.speed), True, (0,0,0))
         self.ecran.blit(scoreDisplay, (0, 0))
+        self.ecran.blit(speedDisplay, (0, 30))
 
     def playerNewColor(self):
         self.color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))

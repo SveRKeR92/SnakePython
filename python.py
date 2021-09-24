@@ -1,3 +1,4 @@
+from Directions import Directions
 import random
 import pygame
 from pygame.font import SysFont
@@ -24,6 +25,7 @@ dir(ecran)
 player = Player(ecran)
 fruit = Fruit(ecran, screenWidth, screenHeight)
 grid = Grid(screenWidth, screenHeight, ecran)
+directions = Directions()
 
 timer = pygame.time.Clock()
 
@@ -48,20 +50,25 @@ while loop:
             player.changeDirection(event.key)
 
             if event.key == pygame.K_SPACE:
-                newRandPosX = random.randrange(0, screenWidth, 25)
-                newRandPosY = random.randrange(0, screenHeight, 25)
-                newHeadPos = (newRandPosX, newRandPosY)
-                print (newRandPosX, newRandPosY)
-                ableToWarp = True
-                for pos in player.positions:
-                    if (newRandPosX, newRandPosX) == (pos[0], pos[1]):
-                        ableToWarp = False
-                        blockPosError = (pos[0], pos[1])
-                
-                if ableToWarp == False:
-                    print("Unable to warp at : ", blockPosError)
-                else:
-                    player.touchCheck(newHeadPos)
+                ableToWarp = False
+
+                while ableToWarp == False:
+                    newRandPosX = random.randrange(0, screenWidth, 25)
+                    newRandPosY = random.randrange(0, screenHeight, 25)
+                    newHeadPos = (newRandPosX, newRandPosY)
+                    print (newRandPosX, newRandPosY)
+                    Error = True
+                    for pos in player.positions:
+                        if (newRandPosX, newRandPosX) == (pos[0], pos[1]):
+                            Error = False
+                            blockPosError = (pos[0], pos[1])
+                    
+                    if Error == False:
+                        print("Unable to warp at : ", blockPosError)
+                    else:
+                        ableToWarp = True
+                        player.touchCheck(newHeadPos)
+                        player.direction = random.choice([directions.right, directions.left, directions.up, directions.down])
 
             if event.key == pygame.K_c:
                 player.playerNewColor()
