@@ -2,11 +2,12 @@ import pygame
 import random
 from Directions import *
 from Grid import Grid
+from  time import sleep
 
 ecran = pygame.display.set_mode((650, 650))
 
 directions = Directions()
-grid = Grid(999, 999, ecran)
+grid = Grid(0, 0, ecran)
 
 right = directions.right
 left = directions.left
@@ -20,6 +21,7 @@ class Player:
         self.width = 25
         self.length = 1
         self.score = 0
+        self.speed = 10
         self.color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
         self.direction = random.choice([right, left, up, down])
 
@@ -45,16 +47,18 @@ class Player:
 
         newPos = ((headX + moveX * grid.tableSize), (headY + moveY*grid.tableSize))
 
-        # check if player is touching himself, starting at 3 length
+        self.touchCheck(newPos)
+
+    def touchCheck(self, newPos):
+         # check if player is touching himself, starting at 3 length
         if len(self.positions) > 2 and newPos in self.positions[2:]:
+            sleep(1)
             self.__init__(self.ecran) # Reset Player
         else: # if not touching, insert new Pos as the head
             self.positions.insert(0, newPos)
             if len(self.positions) > self.length: # if number of pos > snake length, cut the old pos
                 self.positions.pop()
 
-        
-        #self.positions[0] = taillecase * head
 
     def changeDirection(self, eventKeyboard):
         if eventKeyboard == pygame.K_LEFT or eventKeyboard == pygame.K_q :
@@ -65,6 +69,14 @@ class Player:
            self.direction = up
         if eventKeyboard == pygame.K_DOWN or eventKeyboard == pygame.K_s:
             self.direction = down
+
+    def displayScore(self):
+        font = pygame.font.SysFont('Arial', 30)
+        scoreDisplay = font.render('Score : '+ str(self.score), True, (0,0,0))
+        self.ecran.blit(scoreDisplay, (0, 0))
+
+    def playerNewColor(self):
+        self.color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
 
     def displayPlayer(self):
         for pos in self.positions:
