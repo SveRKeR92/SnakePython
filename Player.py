@@ -44,18 +44,18 @@ class Player:
             headY = -self.width
 
         newPos = ((headX + moveX * self.grid.tableSize), (headY + moveY * self.grid.tableSize))
-
+       
         self.touchCheck(newPos)
 
     def touchCheck(self, newPos):
         # insert new Pos as the head 
-        self.positions.insert(0, newPos)
-         # check if player is touching himself, starting at 3 length
+        self.positions.insert(0, newPos) 
+        # check if player is touching himself, starting at 3 length
         if len(self.positions) > 2 and newPos in self.positions[2:]:
             sleep(1)
             self.__init__(self.ecran) # Reset Player
-        else:  
-            if len(self.positions) > self.length: # if number of pos > snake length, cut the old pos
+        else: 
+            if len(self.positions) > self.length: # cut the last pos if fruit not eaten
                 self.positions.pop()
 
 
