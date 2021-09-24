@@ -13,7 +13,6 @@ right = directions.right
 left = directions.left
 up = directions.up
 down = directions.down
-z
 
 
 class Player:
