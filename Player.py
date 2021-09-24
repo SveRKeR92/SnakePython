@@ -60,21 +60,14 @@ class Player:
 
 
     def changeDirection(self, eventKeyboard):
-        if eventKeyboard == pygame.K_LEFT or eventKeyboard == pygame.K_q :
+        if (eventKeyboard == pygame.K_LEFT or eventKeyboard == pygame.K_q) and self.direction != right :
             self.direction = left
-        if eventKeyboard == pygame.K_RIGHT or eventKeyboard == pygame.K_d:
+        if (eventKeyboard == pygame.K_RIGHT or eventKeyboard == pygame.K_d) and self.direction != left :
             self.direction = right
-        if eventKeyboard == pygame.K_UP or eventKeyboard == pygame.K_z:
+        if (eventKeyboard == pygame.K_UP or eventKeyboard == pygame.K_z) and self.direction != down :
            self.direction = up
-        if eventKeyboard == pygame.K_DOWN or eventKeyboard == pygame.K_s:
+        if (eventKeyboard == pygame.K_DOWN or eventKeyboard == pygame.K_s) and self.direction != up :
             self.direction = down
-
-    # def displayScore(self):
-    #     font = pygame.font.SysFont('Arial', 30)
-    #     scoreDisplay = font.render('Score : '+ str(self.score), True, (0,0,0))
-    #     speedDisplay = font.render('Speed : '+ str(self.speed), True, (0,0,0))
-    #     self.ecran.blit(scoreDisplay, (0, 0))
-    #     self.ecran.blit(speedDisplay, (0, 30))
 
     def playerNewColor(self):
         self.color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
