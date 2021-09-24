@@ -5,15 +5,9 @@ from pygame.font import SysFont
 from Player import Player
 from Fruit import Fruit
 from Grid import Grid
+from TextDisplay import TextDisplay
 
-# # Vérifie si tous les modules sont chargés
-module_charge = pygame.init()
-pygame.font.init()
-# print(module_charge);
-# Création fenêtre
-# Plein écran
-# ecran = pygame.display.set_mode((0,0) , pygame.FULLSCREEN)
-# Petit ecran
+pygame.init()
 
 screenHeight = 500
 screenWidth = 500
@@ -26,6 +20,7 @@ player = Player(ecran)
 fruit = Fruit(ecran, screenWidth, screenHeight)
 grid = Grid(screenWidth, screenHeight, ecran)
 directions = Directions()
+text = TextDisplay(ecran, player, screenWidth, screenHeight)
 
 timer = pygame.time.Clock()
 
@@ -41,7 +36,7 @@ while loop:
     grid.displayGrid()
     player.displayPlayer()
     fruit.displayFruit()
-    player.displayScore()
+    text.displayScore()
 
     player.move(screenHeight, screenWidth)
     for event in pygame.event.get():
